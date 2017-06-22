@@ -51,7 +51,7 @@ public class ProductListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ProductViewHolder) view.getTag();
         }
-        setupView(viewHolder, products.get(i), i);
+        setupView(viewHolder, products.get(i));
 
         return view;
     }
@@ -59,17 +59,16 @@ public class ProductListAdapter extends BaseAdapter {
     private void initialize(ProductViewHolder viewHolder, View view) {
         viewHolder.container = view.findViewById(R.id.productItemContainer);
         viewHolder.titleView = (TextView) view.findViewById(R.id.title);
+        viewHolder.imageView = (ImageView) view.findViewById(R.id.productImage);
         viewHolder.quantityView = (TextView) view.findViewById(R.id.quantity);
         viewHolder.discountView = (TextView) view.findViewById(R.id.discount);
         viewHolder.priceView = (TextView) view.findViewById(R.id.price);
-
-        viewHolder.imageView = (ImageView) view.findViewById(R.id.productImage);
         view.setTag(viewHolder);
     }
 
-    private void setupView(ProductViewHolder viewHolder, ProductModel productModel, int index) {
+    private void setupView(ProductViewHolder viewHolder, ProductModel productModel) {
         viewHolder.titleView.setText(productModel.getTitle());
-        Glide.with(context).load(productModel).into(viewHolder.imageView);
+        Glide.with(context).load(productModel.getImageUrl().get(0).get(productModel.getImageUrl().get(0).size() -1).getUrl()).into(viewHolder.imageView);
         viewHolder.quantityView.setText(productModel.getQuantity());
         viewHolder.discountView.setText(productModel.getDiscount());
         viewHolder.priceView.setText(productModel.getPrice());

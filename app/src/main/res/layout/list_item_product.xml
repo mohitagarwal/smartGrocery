@@ -28,7 +28,7 @@
                 android:layout_marginRight="16dp"
                 android:scaleType="centerInside" />
 
-            <include
+            <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

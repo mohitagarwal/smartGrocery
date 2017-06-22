@@ -14,6 +14,7 @@ import com.flipkart.smartgrocery.R;
 import com.flipkart.smartgrocery.adapters.ProductListAdapter;
 import com.flipkart.smartgrocery.netowking.HackdayService;
 import com.flipkart.smartgrocery.netowking.RetrofitApiClient;
+import com.flipkart.smartgrocery.netowking.response.BarcodeSearchResponse;
 import com.flipkart.smartgrocery.netowking.response.ProductModel;
 
 import java.util.List;
@@ -65,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void searchProducts(String searchTerm) {
-        Call<List<ProductModel>> searchResults = hackdayService.getSearchResults(searchTerm);
-        searchResults.enqueue(new Callback<List<ProductModel>>() {
+        Call<BarcodeSearchResponse> searchResults = hackdayService.getSearchResults(searchTerm);
+        searchResults.enqueue(new Callback<BarcodeSearchResponse>() {
             @Override
-            public void onResponse(Call<List<ProductModel>> call, Response<List<ProductModel>> response) {
-                handleResponse(response.body());
+            public void onResponse(Call<BarcodeSearchResponse> call, Response<BarcodeSearchResponse> response) {
+                handleResponse(response.body().getProducts());
             }
 
             @Override
-            public void onFailure(Call<List<ProductModel>> call, Throwable t) {
+            public void onFailure(Call<BarcodeSearchResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Error getting Product, please try again", Toast.LENGTH_LONG).show();
             }
         });
