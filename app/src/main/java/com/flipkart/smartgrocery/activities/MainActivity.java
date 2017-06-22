@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.flipkart.smartgrocery.OCRActivity;
 import com.flipkart.smartgrocery.R;
 import com.flipkart.smartgrocery.adapters.ProductListAdapter;
 import com.flipkart.smartgrocery.netowking.HackdayService;
@@ -28,9 +29,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
 
     private static final int REQUEST_CODE_FOR_BARCODE_SCANNING = 1;
+    private static final int REQUEST_CODE_FOR_RECEIPT_SCANNING = 2;
 
     private Button scanButton;
+    private Button scanReceiptButton;
     private ListView productsListView;
+
 
     private HackdayService hackdayService = RetrofitApiClient.getClient().create(HackdayService.class);
 
@@ -44,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivityForResult(new Intent(MainActivity.this, BarCodeScannerActivity.class), REQUEST_CODE_FOR_BARCODE_SCANNING);
+            }
+        });
+
+        scanReceiptButton = (Button) findViewById(R.id.scan_receipt);
+        scanReceiptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(MainActivity.this, OCRActivity.class), REQUEST_CODE_FOR_RECEIPT_SCANNING);
+
             }
         });
 

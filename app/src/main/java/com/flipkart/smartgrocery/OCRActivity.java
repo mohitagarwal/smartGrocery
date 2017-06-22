@@ -44,7 +44,7 @@ public class OCRActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY = 0;
     private static final int REQUEST_CAMERA = 1;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = OCRActivity.class.getSimpleName();
 
     public static final int CAMERA_PERMISSION_REQUEST = 103;
 
