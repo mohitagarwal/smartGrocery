@@ -12,14 +12,15 @@
         android:id="@+id/scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="Scan" />
 
     <Button
         android:id="@+id/scan_receipt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/scan"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/scan"
+        android:layout_alignParentRight="true"
         android:text="Scan receipt" />
 
     <ListView

@@ -22,9 +22,15 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flipkart.smartgrocery.R;
+import com.flipkart.smartgrocery.adapters.ProductListAdapter;
+import com.flipkart.smartgrocery.netowking.HackdayService;
+import com.flipkart.smartgrocery.netowking.RetrofitApiClient;
+import com.flipkart.smartgrocery.netowking.response.ReceiptScanResponse;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -36,6 +42,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by satyanarayana.p on 22/06/17.
@@ -49,12 +59,13 @@ public class OCRActivity extends AppCompatActivity {
 
     public static final int CAMERA_PERMISSION_REQUEST = 103;
 
-    public static final String INTENT_EXTRA_SCAN_RESULT = "intent_extra_scan_result";
-    public static final String INTENT_EXTRA_HEADER_TEXT = "intent_extra_header_text";
-
     private Uri imageUri;
     private TextView detectedTextView;
     private Button scan;
+    private TextView yourCostView;
+    private TextView fkCostView;
+    private TextView savingsView;
+    private ListView productsListView;
 
     private static final String FLASH_STATE = "FLASH_STATE";
     private static final String SELECTED_FORMATS = "SELECTED_FORMATS";
@@ -65,6 +76,8 @@ public class OCRActivity extends AppCompatActivity {
     private ArrayList<Integer> mSelectedIndices;
     private boolean mDeviceHasFlash = false;
     private boolean mIsFlashOn = false;
+
+    private HackdayService hackdayService = RetrofitApiClient.getClient().create(HackdayService.class);
 
 
     @Override
@@ -84,18 +97,23 @@ public class OCRActivity extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
                 // User has denied the permission at least once. Ask it again.
                 // In future we may want to show a permission request rationale here.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_REQUEST);
-            }else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_REQUEST);
+            } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 // User has denied the permission at least once. Ask it again.
                 // In future we may want to show a permission request rationale here.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_REQUEST);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_REQUEST);
             } else {
                 // Asking this permission for the first time.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_REQUEST);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_REQUEST);
             }
         } else {
             takePhoto();
         }
+
+        yourCostView = (TextView) findViewById(R.id.your_cost);
+        fkCostView = (TextView) findViewById(R.id.fk_cost);
+        savingsView = (TextView) findViewById(R.id.savings);
+        productsListView = (ListView) findViewById(R.id.product_list);
 
         detectedTextView = (TextView) findViewById(R.id.detected_text);
         detectedTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -171,15 +189,41 @@ public class OCRActivity extends AppCompatActivity {
             StringBuilder detectedText = new StringBuilder();
             for (TextBlock textBlock : textBlocks) {
                 if (textBlock != null && textBlock.getValue() != null) {
-                    detectedText.append(textBlock.getValue());
+                    detectedText.append(textBlock.getValue().trim());
                     detectedText.append("\n");
                 }
             }
 
+            sendReceiptOCRData(detectedText.toString().trim());
+
             detectedTextView.setText(detectedText);
+
         } finally {
             textRecognizer.release();
         }
+    }
+
+    private void sendReceiptOCRData(String detectedText) {
+        Call<ReceiptScanResponse> receiptScanResponseCall = hackdayService.getReceiptScanResults(detectedText);
+        receiptScanResponseCall.enqueue(new Callback<ReceiptScanResponse>() {
+            @Override
+            public void onResponse(Call<ReceiptScanResponse> call, Response<ReceiptScanResponse> response) {
+                handleReceiptScanResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ReceiptScanResponse> call, Throwable t) {
+                Toast.makeText(OCRActivity.this, "Error getting products, please try again", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void handleReceiptScanResponse(ReceiptScanResponse response) {
+        yourCostView.setText(response.getYourCost());
+        fkCostView.setText(response.getFkCost());
+        savingsView.setText(response.getSaving());
+        ProductListAdapter adapter = new ProductListAdapter(response.getProducts(), this);
+        productsListView.setAdapter(adapter);
     }
 
     private void inspect(Uri uri) {
