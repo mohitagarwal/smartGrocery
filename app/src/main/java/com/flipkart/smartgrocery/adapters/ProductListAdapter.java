@@ -69,9 +69,9 @@ public class ProductListAdapter extends BaseAdapter {
     private void setupView(ProductViewHolder viewHolder, ProductModel productModel) {
         viewHolder.titleView.setText(productModel.getTitle());
         Glide.with(context).load(productModel.getImageUrl().get(0).get(productModel.getImageUrl().get(0).size() -1).getUrl()).into(viewHolder.imageView);
-        viewHolder.quantityView.setText(productModel.getQuantity());
-        viewHolder.discountView.setText(productModel.getDiscount());
-        viewHolder.priceView.setText(productModel.getPrice());
+        viewHolder.quantityView.setText(productModel.getQuantity() + "");
+        viewHolder.discountView.setText(productModel.getDiscount() + "");
+        viewHolder.priceView.setText(productModel.getPrice() + "");
         
         viewHolder.container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
