@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        android:id="@+id/zxing_scanner_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@android:color/darker_gray">
+
+        <TextView
+            android:id="@+id/textView_header_barcode_scanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="36dp"
+            android:layout_marginRight="52dp"
+            android:layout_marginEnd="52dp"
+            android:textColor="@android:color/white"
+            tools:text="Hello. This is sample text."
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/button_camera_flash"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_flash_off_white_24dp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+</FrameLayout>
