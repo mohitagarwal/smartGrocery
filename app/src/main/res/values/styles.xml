@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Style.Flipkart.Seller.Widget.Card" parent="Theme.AppCompat">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <!--Normal Card-->
+    <style name="Style.Flipkart.Seller.Widget.CardNormal" parent="Style.Flipkart.Seller.Widget.Card">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
 </resources>
