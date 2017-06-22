@@ -21,18 +21,18 @@
         </activity>
         <activity android:name=".activities.BarCodeScannerActivity" />
         <activity android:name=".activities.OCRActivity" />
+        <activity android:name=".activities.ReceiptScanResultActivity" />
+        <activity android:name=".activities.NextTimeBuyActivity" />
 
-        <service
-            android:name=".services.FkFcmService">
+        <service android:name=".services.FkFcmService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".services.FkFcmInstanceIdService">
+        <service android:name=".services.FkFcmInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 

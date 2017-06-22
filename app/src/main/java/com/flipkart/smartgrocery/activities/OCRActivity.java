@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -196,11 +197,19 @@ public class OCRActivity extends AppCompatActivity {
 
             sendReceiptOCRData(detectedText.toString().trim());
 
-            // detectedTextView.setText(detectedText);
+            saveDataInPrefs(detectedText.toString().trim());
+            detectedTextView.setText(detectedText);
 
         } finally {
             textRecognizer.release();
         }
+    }
+
+    private void saveDataInPrefs(String detectedText) {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_pref_file_name), MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(getString(R.string.shared_pref_last_detected_text), detectedText);
+        editor.apply();
     }
 
     private void sendReceiptOCRData(String detectedText) {

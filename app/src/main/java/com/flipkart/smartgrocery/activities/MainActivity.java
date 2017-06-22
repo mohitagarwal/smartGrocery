@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BarcodeSearchResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error getting Product, please try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Error getting Product, please try again\n" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
