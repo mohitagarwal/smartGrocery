@@ -101,10 +101,17 @@
         </TableRow>
     </TableLayout>
 
+    <TextView
+        android:id="@+id/savings_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/table"
+        android:text="You colud have saved 10% more :P" />
+
     <ListView
         android:id="@+id/product_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/table" />
+        android:layout_below="@id/savings_text" />
 
 </RelativeLayout>

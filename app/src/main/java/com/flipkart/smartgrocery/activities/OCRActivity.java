@@ -196,7 +196,7 @@ public class OCRActivity extends AppCompatActivity {
 
             sendReceiptOCRData(detectedText.toString().trim());
 
-            detectedTextView.setText(detectedText);
+            // detectedTextView.setText(detectedText);
 
         } finally {
             textRecognizer.release();
