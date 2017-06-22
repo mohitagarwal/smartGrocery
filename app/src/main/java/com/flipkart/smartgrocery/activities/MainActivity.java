@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         scanReceiptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(MainActivity.this, OCRActivity.class), REQUEST_CODE_FOR_RECEIPT_SCANNING);
+                startActivityForResult(new Intent(MainActivity.this, ReceiptScanEntryActivity.class), REQUEST_CODE_FOR_RECEIPT_SCANNING);
 
             }
         });

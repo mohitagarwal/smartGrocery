@@ -23,14 +23,8 @@ public class ReceiptScanEntryActivity extends AppCompatActivity {
         scanReceiptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scanReceiptButton = (Button) findViewById(R.id.scan_receipt);
-                scanReceiptButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(ReceiptScanEntryActivity.this, OCRActivity.class));
-                        finish();
-                    }
-                });
+                startActivity(new Intent(ReceiptScanEntryActivity.this, OCRActivity.class));
+                finish();
             }
         });
     }

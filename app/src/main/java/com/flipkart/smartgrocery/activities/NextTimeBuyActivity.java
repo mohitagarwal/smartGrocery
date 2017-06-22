@@ -29,7 +29,7 @@ public class NextTimeBuyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_next_time_buy);
 
         productsListView = (ListView) findViewById(R.id.product_list);
 
