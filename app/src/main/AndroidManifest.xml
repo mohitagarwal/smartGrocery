@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.BarCodeScannerActivity" />
-        <activity android:name=".OCRActivity" />
+        <activity android:name=".activities.OCRActivity" />
 
         <service
             android:name=".services.FkFcmService">

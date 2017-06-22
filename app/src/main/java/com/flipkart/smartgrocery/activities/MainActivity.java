@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.flipkart.smartgrocery.OCRActivity;
 import com.flipkart.smartgrocery.R;
 import com.flipkart.smartgrocery.adapters.ProductListAdapter;
 import com.flipkart.smartgrocery.netowking.HackdayService;

@@ -1,4 +1,4 @@
-package com.flipkart.smartgrocery;
+package com.flipkart.smartgrocery.activities;
 
 import android.Manifest;
 import android.app.Activity;
@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.flipkart.smartgrocery.R;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
