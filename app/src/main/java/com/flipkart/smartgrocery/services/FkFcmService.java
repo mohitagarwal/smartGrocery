@@ -7,12 +7,18 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
+import android.text.TextUtils;
 
-import com.flipkart.smartgrocery.activities.MainActivity;
 import com.flipkart.smartgrocery.R;
+import com.flipkart.smartgrocery.activities.BarCodeScannerActivity;
+import com.flipkart.smartgrocery.activities.MainActivity;
+import com.flipkart.smartgrocery.activities.NextTimeBuyActivity;
+import com.flipkart.smartgrocery.activities.OCRActivity;
+import com.flipkart.smartgrocery.activities.ReceiptScanEntryActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Map;
 
 /**
  * Created by satyanarayana.p on 22/06/17.
@@ -23,39 +29,36 @@ public class FkFcmService extends FirebaseMessagingService {
 
     private static final String TAG = "FkFcmService";
 
+    private static final String ACTION_BARCODE_SCANNER = "barcodeScanner";
+
+    private static final String ACTION_RECEIPT_SCANNER = "receiptScanner";
+
+    private static final String ACTION_SHOW_CART_ITEMS = "showCartItems";
+
+    private static final String KEY_TITLE = "title";
+
+    private static final String KEY_DESCRIPTION = "description";
+
+    private static final String ACTION1_TITLE = "action1Title";
+    private static final String ACTION2_TITLE = "action2Title";
+
+    private static final String ACTION1_CODE = "action1Code";
+    private static final String ACTION2_CODE = "action2Code";
+
     @Override
     public void onMessageReceived(RemoteMessage message) {
         super.onMessageReceived(message);
 
-        Log.d("pss","noti data:"+message.getData());
-        sendNotification(message.getNotification().getBody());
+        sendNotification(message.getData());
 
     }
 
-
-    private void sendNotification(String messageBody) {
+    private void sendNotification(Map<String, String> messageBody) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-        Intent intent2 = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        Intent intent3 = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
- PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
- PendingIntent pendingIntent3 = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-  /*      NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Firebase Push Notification")
-                .setContentText(messageBody)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);*/
-
 
         NotificationCompat.Builder notificationBuilder2 = new NotificationCompat.Builder(this);
 
@@ -64,24 +67,48 @@ public class FkFcmService extends FirebaseMessagingService {
         notificationBuilder2.setSmallIcon(R.drawable.fk_notification_secondaryicon)
                 .setColor(getResources().getColor(R.color.colorPrimary))
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .setBigContentTitle("hey")
-                        .bigText(messageBody)
-                        .setSummaryText("Summary"))
-                .setContentTitle("hey")
-                .setContentText(messageBody)
-                .setSubText("Sub text")
+                        .bigText(messageBody.get(KEY_TITLE))
+                        .setSummaryText(messageBody.get(KEY_DESCRIPTION)))
+                .setContentTitle(messageBody.get(KEY_TITLE))
+                .setContentText(messageBody.get(KEY_DESCRIPTION))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
-        notificationBuilder2.addAction(-1, "Action", pendingIntent2);
-        notificationBuilder2.addAction(-1, "Action2", pendingIntent3);
-
+        if (!TextUtils.isEmpty(messageBody.get(ACTION1_CODE))) {
+            notificationBuilder2.addAction(-1, messageBody.get(ACTION1_TITLE), getIntentForAction(messageBody.get(ACTION1_CODE)));
+        }
+        if (!TextUtils.isEmpty(messageBody.get(ACTION2_CODE))) {
+            notificationBuilder2.addAction(-1, messageBody.get(ACTION2_TITLE), getIntentForAction(messageBody.get(ACTION2_CODE)));
+        }
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notificationBuilder2.build());
+    }
+
+    private PendingIntent getIntentForAction(String action) {
+        Intent intent;
+        PendingIntent pendingIntent = null;
+        if (TextUtils.equals(action, ACTION_BARCODE_SCANNER)) {
+            intent = new Intent(this, BarCodeScannerActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        } else if (TextUtils.equals(action, ACTION_RECEIPT_SCANNER)) {
+            intent = new Intent(this, ReceiptScanEntryActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        } else if (TextUtils.equals(action, ACTION_SHOW_CART_ITEMS)) {
+            intent = new Intent(this, NextTimeBuyActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        }
+
+        return pendingIntent;
     }
 
     @Override
