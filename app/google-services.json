@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "745102576922",
+    "firebase_url": "https://smartgrocery-52a0d.firebaseio.com",
+    "project_id": "smartgrocery-52a0d",
+    "storage_bucket": "smartgrocery-52a0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745102576922:android:80522179d96dd575",
+        "android_client_info": {
+          "package_name": "com.flipkart.smartgrocery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745102576922-u4c7rj8lu33thfigfm41dq7p31087oha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABoxsCxvWNCqI8ZGGzDH_2E-2Wa4uAL1g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
