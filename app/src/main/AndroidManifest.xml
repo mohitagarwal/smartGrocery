@@ -23,6 +23,7 @@
         <activity android:name=".activities.OCRActivity" />
         <activity android:name=".activities.ReceiptScanResultActivity" />
         <activity android:name=".activities.NextTimeBuyActivity" />
+        <activity android:name=".activities.ReceiptScanEntryActivity" />
 
         <service android:name=".services.FkFcmService">
             <intent-filter>
