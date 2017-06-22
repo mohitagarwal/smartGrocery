@@ -1,4 +1,4 @@
-package com.flipkart.smartgrocery;
+package com.flipkart.smartgrocery.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.flipkart.smartgrocery.R;
 
 public class MainActivity extends AppCompatActivity {
 

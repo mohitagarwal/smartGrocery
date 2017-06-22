@@ -1,4 +1,4 @@
-package com.flipkart.smartgrocery;
+package com.flipkart.smartgrocery.activities;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.flipkart.smartgrocery.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
