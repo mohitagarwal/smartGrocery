@@ -8,7 +8,11 @@
         android:id="@+id/cart_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You could have saved 10% more :P" />
+        android:background="#FFDE14"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="Great!, We have added 5% discount on these items. After this purchase, you will get 5% on your next purchase of these items"
+        android:textSize="16dp" />
 
     <ListView
         android:id="@+id/cart_list"

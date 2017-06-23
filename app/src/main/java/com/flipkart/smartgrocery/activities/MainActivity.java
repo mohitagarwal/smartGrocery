@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleResponse(List<ProductModel> products) {
-        ProductListAdapter adapter = new ProductListAdapter(products, this, true);
+        ProductListAdapter adapter = new ProductListAdapter(products, this, true, true);
         productsListView.setAdapter(adapter);
     }
 }

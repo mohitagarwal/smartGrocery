@@ -34,8 +34,8 @@ public class ShoppingCart extends Model {
     @Column(name = "fsn")
     public String fsn;
 
-    @Column(name = "discount")
-    public Integer discount;
+    @Column(name = "discount_price")
+    public String discountPrice;
 
     @Column(name = "attributes")
     public String attributes;
@@ -56,7 +56,7 @@ public class ShoppingCart extends Model {
         this.price = productModel.getPrice();
         this.vertical = productModel.getCategory();
         this.quantity = 1;
-        this.discount = productModel.getDiscount();
+        this.discountPrice = productModel.getDiscountedPrice();
         this.fsn = productModel.getFsn();
         StringBuilder sb = new StringBuilder();
         if (productModel.getAttributes() != null && productModel.getAttributes().size() != 0) {

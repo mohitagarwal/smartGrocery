@@ -3,9 +3,11 @@ package com.flipkart.smartgrocery.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flipkart.smartgrocery.R;
 import com.flipkart.smartgrocery.adapters.ProductListAdapter;
@@ -13,6 +15,7 @@ import com.flipkart.smartgrocery.models.ShoppingCart;
 import com.flipkart.smartgrocery.netowking.response.IdAttributes;
 import com.flipkart.smartgrocery.netowking.response.ImageModel;
 import com.flipkart.smartgrocery.netowking.response.ProductModel;
+import com.flipkart.smartgrocery.utils.TextUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -41,11 +44,20 @@ public class ShoppingCartActivity extends AppCompatActivity {
         totalDiscountView = (TextView) findViewById(R.id.discountAmount);
         totalPayableView = (TextView) findViewById(R.id.payableAmount);
         checkoutButton = (Button) findViewById(R.id.pay);
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ShoppingCartActivity.this, "We have placed your order, thanks for shopping with Flipkart", Toast.LENGTH_LONG).show();
+                ShoppingCart.deleteAll();
+                finish();
+            }
+        });
         displayList();
     }
 
     private void displayList() {
         int totalAmount = 0;
+        int totalDiscountPrice = 0;
         int totalDiscount = 0;
         List<ShoppingCart> cartList = ShoppingCart.getAll();
         List<ProductModel> productModels = new ArrayList<>();
@@ -64,7 +76,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             model.setCategory(cart.vertical);
             model.setQuantity(cart.quantity);
             model.setFsn(cart.fsn);
-            model.setDiscount(cart.discount);
+            model.setDiscountedPrice(cart.discountPrice);
             ArrayList<String> attrs = new ArrayList<String>(Arrays.asList(cart.attributes.split(" , ")));
             ArrayList<IdAttributes> idAttributes = new ArrayList<>();
             Gson gson = new Gson();
@@ -76,15 +88,16 @@ public class ShoppingCartActivity extends AppCompatActivity {
             model.setAttributes(idAttributes);
             productModels.add(model);
             totalAmount += model.getPrice() * model.getQuantity();
-            totalDiscount += model.getDiscount() * model.getQuantity();
+            totalDiscountPrice += (Double.parseDouble(model.getDiscountedPrice()) * model.getQuantity());
+            totalDiscount = totalAmount - totalDiscountPrice;
         }
-        int totalPayable = totalAmount - totalDiscount;
+        int totalPayable = totalDiscountPrice;
         ProductListAdapter adapter = new ProductListAdapter(productModels, this);
         productsListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        totalAmountView.setText(totalAmount + "");
-        totalDiscountView.setText(totalDiscount + "");
-        totalPayableView.setText(totalPayable + "");
+        totalAmountView.setText(TextUtils.getRupeeText(totalAmount));
+        totalDiscountView.setText(TextUtils.getRupeeText(totalDiscount));
+        totalPayableView.setText(TextUtils.getRupeeText(totalPayable));
 
     }
 

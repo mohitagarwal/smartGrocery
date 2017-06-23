@@ -19,5 +19,8 @@ public class ReceiptScanResponse {
 
     private String saving;
 
+    @SerializedName("saving_percent")
+    private String savingPercent;
+
     private List<ProductModel> products;
 }

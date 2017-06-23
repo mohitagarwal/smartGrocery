@@ -66,6 +66,7 @@ public class OCRActivity extends AppCompatActivity {
     private TextView fkCostView;
     private TextView savingsView;
     private ListView productsListView;
+    private TextView discountText;
 
     private static final String FLASH_STATE = "FLASH_STATE";
     private static final String SELECTED_FORMATS = "SELECTED_FORMATS";
@@ -114,6 +115,7 @@ public class OCRActivity extends AppCompatActivity {
         fkCostView = (TextView) findViewById(R.id.fk_cost);
         savingsView = (TextView) findViewById(R.id.savings);
         productsListView = (ListView) findViewById(R.id.product_list);
+        discountText = (TextView) findViewById(R.id.savings_text);
     }
 
     @Override
@@ -242,6 +244,7 @@ public class OCRActivity extends AppCompatActivity {
         savingsView.setText(response.getSaving());
         ProductListAdapter adapter = new ProductListAdapter(response.getProducts(), this, true);
         productsListView.setAdapter(adapter);
+        discountText.setText(String.format(getString(R.string.discount_text_after_receipt_scan), response.getSavingPercent()));
     }
 
     private void inspect(Uri uri) {

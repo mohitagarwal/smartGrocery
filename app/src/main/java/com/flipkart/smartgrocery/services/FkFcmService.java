@@ -13,8 +13,8 @@ import com.flipkart.smartgrocery.R;
 import com.flipkart.smartgrocery.activities.BarCodeScannerActivity;
 import com.flipkart.smartgrocery.activities.MainActivity;
 import com.flipkart.smartgrocery.activities.NextTimeBuyActivity;
-import com.flipkart.smartgrocery.activities.OCRActivity;
 import com.flipkart.smartgrocery.activities.ReceiptScanEntryActivity;
+import com.flipkart.smartgrocery.activities.ShoppingCartActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -35,9 +35,17 @@ public class FkFcmService extends FirebaseMessagingService {
 
     private static final String ACTION_SHOW_CART_ITEMS = "showCartItems";
 
+    private static final String ACTION_SHOW_ADD_TO_CART = "addToCart";
+
+    private static final String ACTION_SHOW_REMIND_ME_LATER = "remindMeLater";
+
+    private static final String ACTION_SHOW_CHECKOUT = "checkout";
+
     private static final String KEY_TITLE = "title";
 
     private static final String KEY_DESCRIPTION = "description";
+
+    private static final String KEY_PRODUCT = "product";
 
     private static final String ACTION1_TITLE = "action1Title";
     private static final String ACTION2_TITLE = "action2Title";
@@ -103,6 +111,15 @@ public class FkFcmService extends FirebaseMessagingService {
                     PendingIntent.FLAG_ONE_SHOT);
         } else if (TextUtils.equals(action, ACTION_SHOW_CART_ITEMS)) {
             intent = new Intent(this, NextTimeBuyActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        } else if (TextUtils.equals(action, ACTION_SHOW_ADD_TO_CART)) {
+
+        } else if (TextUtils.equals(action, ACTION_SHOW_REMIND_ME_LATER)) {
+
+        } else if (TextUtils.equals(action, ACTION_SHOW_CHECKOUT)) {
+            intent = new Intent(this, ShoppingCartActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_ONE_SHOT);

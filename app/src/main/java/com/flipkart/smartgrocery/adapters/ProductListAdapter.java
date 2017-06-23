@@ -26,6 +26,7 @@ public class ProductListAdapter extends BaseAdapter {
     private Context context;
     private List<ProductModel> products;
     private boolean showActions;
+    private boolean hideIrrelevants;
 
     public ProductListAdapter(List<ProductModel> products, Context context) {
         this.products = products;
@@ -38,6 +39,14 @@ public class ProductListAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.showActions = showActions;
+    }
+
+    public ProductListAdapter(List<ProductModel> products, Context context, boolean showActions, boolean hideIrrelevants) {
+        this.products = products;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = context;
+        this.showActions = showActions;
+        this.hideIrrelevants = hideIrrelevants;
     }
 
 
@@ -77,6 +86,7 @@ public class ProductListAdapter extends BaseAdapter {
         viewHolder.imageView = (ImageView) view.findViewById(R.id.productImage);
         viewHolder.quantityView = (TextView) view.findViewById(R.id.quantity);
         viewHolder.discountView = (TextView) view.findViewById(R.id.discount);
+        viewHolder.originalText = (TextView) view.findViewById(R.id.original_text);
         viewHolder.priceView = (TextView) view.findViewById(R.id.price);
         viewHolder.addToCart = (Button) view.findViewById(R.id.button1);
         viewHolder.irrevelant = (Button) view.findViewById(R.id.button2);
@@ -111,13 +121,13 @@ public class ProductListAdapter extends BaseAdapter {
             }
             viewHolder.idAttributes.setText(builder.toString().trim());
             if (productModel.getQuantity() != 0) {
-                viewHolder.quantityView.setText(String.valueOf(productModel.getQuantity()));
+                viewHolder.quantityView.setText("Qty:" + String.valueOf(productModel.getQuantity()));
                 viewHolder.quantityView.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.quantityView.setVisibility(View.GONE);
             }
-            if (productModel.getDiscount() != 0) {
-                viewHolder.discountView.setText(productModel.getDiscount() + "%");
+            if (productModel.getDiscountedPrice() != null) {
+                viewHolder.discountView.setText("Discounted Price:" + TextUtils.getRupeeText(productModel.getDiscountedPrice()));
                 viewHolder.discountView.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.discountView.setVisibility(View.GONE);
@@ -144,14 +154,23 @@ public class ProductListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(context, "Duly noted, thanks for contributing", Toast.LENGTH_LONG).show();
-                    products.remove(index);
-                    notifyDataSetChanged();
+                    if (hideIrrelevants) {
+                        products.remove(index);
+                        notifyDataSetChanged();
+                    }
                 }
             });
+            if (productModel.getOriginalString() != null) {
+                viewHolder.originalText.setText(productModel.getOriginalString());
+                viewHolder.originalText.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.originalText.setVisibility(View.GONE);
+            }
         }
     }
 
     private static class ProductViewHolder {
+        private TextView originalText;
         private ImageView imageView;
         private TextView titleView;
         private TextView idAttributes;

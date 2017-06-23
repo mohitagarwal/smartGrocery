@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/static_text"
+        android:id="@+id/savings_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:padding="8dp"
-        android:text="@string/after_receipt_scan_static_text"
-        android:textSize="16dp" />
+        android:textSize="18dp"
+        android:text="@string/discount_text_after_receipt_scan" />
 
     <TableLayout
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/static_text"
         android:layout_marginTop="16dp"
         android:shrinkColumns="*"
         android:stretchColumns="*">
@@ -95,18 +95,17 @@
     </TableLayout>
 
     <TextView
-        android:id="@+id/savings_text"
+        android:id="@+id/static_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/table"
-        android:layout_marginTop="8dp"
         android:gravity="center"
         android:padding="8dp"
-        android:text="@string/discount_text_after_receipt_scan" />
+        android:background="#FFDE14"
+        android:text="@string/after_receipt_scan_static_text"
+        android:textSize="16dp" />
 
     <ListView
         android:id="@+id/product_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/savings_text" />
-</RelativeLayout>
+        android:layout_height="wrap_content" />
+</LinearLayout>

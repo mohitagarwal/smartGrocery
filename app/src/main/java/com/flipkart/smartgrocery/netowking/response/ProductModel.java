@@ -28,7 +28,11 @@ public class ProductModel {
 
     private int quantity;
 
-    private int discount;
+    @SerializedName("original_string")
+    private String originalString;
+
+    @SerializedName("dis_counted_price")
+    private String discountedPrice;
 
     @SerializedName("id_attributes")
     private List<IdAttributes> attributes;
