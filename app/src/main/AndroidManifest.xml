@@ -20,9 +20,12 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
-        <meta-data android:name="AA_MODELS" android:value="com.flipkart.smartgrocery.models.ShoppingCart" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.flipkart.smartgrocery.models.ShoppingCart" />
 
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flipkart.smartgrocery.R;
@@ -34,10 +34,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_FOR_BARCODE_SCANNING = 1;
     private static final int REQUEST_CODE_FOR_RECEIPT_SCANNING = 2;
 
+    public static final String INTENT_BARCODE = "barcode";
+
     private Button scanButton;
     private Button scanReceiptButton;
     private ListView productsListView;
-    private TextView listHeaderText;
+    private View listHeaderText;
 
 
     private HackdayService hackdayService = RetrofitApiClient.getClient().create(HackdayService.class);
@@ -67,7 +69,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         productsListView = (ListView) findViewById(R.id.product_list);
-        listHeaderText = new TextView(this);
+        listHeaderText = LayoutInflater.from(this).inflate(R.layout.listview_header, null);
+
+        if (getIntent().hasExtra(INTENT_BARCODE)) {
+            boolean openBarcode = getIntent().getBooleanExtra(INTENT_BARCODE, false);
+            if (openBarcode) {
+                Intent intent = new Intent(MainActivity.this, BarCodeScannerActivity.class);
+                intent.putExtra(BarCodeScannerActivity.INTENT_EXTRA_HEADER_TEXT, getString(R.string.barcode_scanner_text));
+                startActivityForResult(intent, REQUEST_CODE_FOR_BARCODE_SCANNING);
+            }
+        }
     }
 
     @Override
@@ -98,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, searchTerm);
 
                 searchProducts(searchTerm);
-                listHeaderText.setText("Showing results for " + searchTerm);
                 productsListView.addHeaderView(listHeaderText);
             }
         }

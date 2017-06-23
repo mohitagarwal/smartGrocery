@@ -99,8 +99,9 @@ public class FkFcmService extends FirebaseMessagingService {
         Intent intent;
         PendingIntent pendingIntent = null;
         if (TextUtils.equals(action, ACTION_BARCODE_SCANNER)) {
-            intent = new Intent(this, BarCodeScannerActivity.class);
+            intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(MainActivity.INTENT_BARCODE, true);
             pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_ONE_SHOT);
         } else if (TextUtils.equals(action, ACTION_RECEIPT_SCANNER)) {
