@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.flipkart.smartgrocery.R;
+import com.flipkart.smartgrocery.netowking.response.IdAttributes;
 import com.flipkart.smartgrocery.netowking.response.ProductModel;
+import com.flipkart.smartgrocery.utils.TextUtils;
 
 import java.util.List;
 
@@ -57,8 +59,8 @@ public class ProductListAdapter extends BaseAdapter {
     }
 
     private void initialize(ProductViewHolder viewHolder, View view) {
-        viewHolder.container = view.findViewById(R.id.productItemContainer);
         viewHolder.titleView = (TextView) view.findViewById(R.id.title);
+        viewHolder.idAttributes = (TextView) view.findViewById(R.id.id_attributes);
         viewHolder.imageView = (ImageView) view.findViewById(R.id.productImage);
         viewHolder.quantityView = (TextView) view.findViewById(R.id.quantity);
         viewHolder.discountView = (TextView) view.findViewById(R.id.discount);
@@ -67,28 +69,59 @@ public class ProductListAdapter extends BaseAdapter {
     }
 
     private void setupView(ProductViewHolder viewHolder, ProductModel productModel) {
-        viewHolder.titleView.setText(productModel.getTitle());
-        Glide.with(context).load(productModel.getImageUrl().get(0).get(productModel.getImageUrl().get(0).size() -1).getUrl()).into(viewHolder.imageView);
-        viewHolder.quantityView.setText(productModel.getQuantity() + "");
-        viewHolder.discountView.setText(productModel.getDiscount() + "");
-        viewHolder.priceView.setText(productModel.getPrice() + "");
-        
-        viewHolder.container.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                return false;
-                // TODO: 22/06/17  
+        if (productModel != null) {
+            if (productModel.getImageUrl() != null
+                    && !productModel.getImageUrl().isEmpty()
+                    && productModel.getImageUrl().get(0) != null
+                    && !productModel.getImageUrl().get(0).isEmpty()) {
+                viewHolder.imageView.setVisibility(View.VISIBLE);
+                Glide.with(context).load(productModel.getImageUrl().get(0).get(productModel.getImageUrl().get(0).size() - 1).getUrl()).into(viewHolder.imageView);
+            } else {
+                viewHolder.imageView.setVisibility(View.INVISIBLE);
             }
-        });
+            viewHolder.titleView.setText(productModel.getTitle());
+            /* Build list of attributes and fill the body of the container */
+            StringBuilder builder = new StringBuilder();
+            if (productModel.getAttributes() != null && productModel.getAttributes().size() != 0) {
+                for (int i = 0; i < Math.min(productModel.getAttributes().size(), 2); i++) {
+                    IdAttributes attribute = productModel.getAttributes().get(i);
+                    if (attribute.getName() != null && attribute.getValue() != null) {
+                        builder.append(attribute.getName())
+                                .append(" : ")
+                                .append(attribute.getValue())
+                                .append("\n");
+                    }
+                }
+            }
+            viewHolder.idAttributes.setText(builder.toString().trim());
+            if (productModel.getQuantity() != 0) {
+                viewHolder.quantityView.setText(String.valueOf(productModel.getQuantity()));
+                viewHolder.quantityView.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.quantityView.setVisibility(View.GONE);
+            }
+            if (productModel.getDiscount() != 0) {
+                viewHolder.discountView.setText(productModel.getDiscount() + "%");
+                viewHolder.discountView.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.discountView.setVisibility(View.GONE);
+            }
+            if (productModel.getPrice() != 0) {
+                viewHolder.priceView.setText(TextUtils.getRupeeText(productModel.getPrice()));
+                viewHolder.priceView.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.priceView.setVisibility(View.GONE);
+            }
+        }
     }
 
     private static class ProductViewHolder {
-        private View container;
         private ImageView imageView;
         private TextView titleView;
+        private TextView idAttributes;
         private TextView quantityView;
         private TextView priceView;
         private TextView discountView;
     }
-    
+
 }

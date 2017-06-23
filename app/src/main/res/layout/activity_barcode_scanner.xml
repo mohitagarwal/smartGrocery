@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="@android:color/darker_gray">
+        android:background="#20000000">
 
         <TextView
             android:id="@+id/textView_header_barcode_scanner"

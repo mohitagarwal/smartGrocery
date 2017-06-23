@@ -10,67 +10,115 @@
         android:layout_height="wrap_content"
         android:minHeight="100dp">
 
-        <!--Body Content-->
-        <RelativeLayout
-            android:id="@+id/productItemContainer"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackground"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/productImage"
-                android:layout_width="98dp"
-                android:layout_height="98dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginRight="16dp"
-                android:scaleType="centerInside" />
-
-            <TextView
-                android:id="@+id/title"
+            <!--Body Content-->
+            <RelativeLayout
+                android:id="@+id/productItemContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/productImage"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="@color/primary_text_default_material_light"
-                android:textSize="16sp"
-                tools:text="Apple iPad Mini" />
+                android:background="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/quantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/title"
-                android:layout_below="@id/title"
-                android:textColor="@color/primary_text_default_material_light"
-                android:textSize="14sp"
-                tools:text="Black 16GB" />
+                <ImageView
+                    android:id="@+id/productImage"
+                    android:layout_width="98dp"
+                    android:layout_height="98dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginRight="16dp"
+                    android:scaleType="centerInside" />
 
-            <TextView
-                android:id="@+id/discount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/title"
-                android:layout_below="@id/quantity"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/secondary_text_default_material_light"
-                android:textSize="14sp"
-                tools:text="Requested on : Sep 24\nRequested on : Sep 24" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/productImage"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="16sp"
+                    tools:text="Apple iPad Mini" />
 
-            <TextView
-                android:id="@+id/price"
+                <TextView
+                    android:id="@+id/id_attributes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/title"
+                    android:layout_below="@id/title"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="14sp"
+                    tools:text="Id Attributes" />
+
+                <TextView
+                    android:id="@+id/quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/id_attributes"
+                    android:layout_below="@id/id_attributes"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="14sp"
+                    tools:text="Black 16GB" />
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/title"
+                    android:layout_below="@id/quantity"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="14sp"
+                    tools:text="Requested on : Sep 24\nRequested on : Sep 24" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/title"
+                    android:layout_below="@id/discount"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="14sp"
+                    tools:text="Requested on : Sep 24" />
+            </RelativeLayout>
+
+            <!--Card Action Container-->
+            <LinearLayout
+                android:id="@+id/list_action"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/title"
-                android:layout_below="@id/discount"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/primary_text_default_material_light"
-                android:textSize="14sp"
-                tools:text="Requested on : Sep 24" />
-        </RelativeLayout>
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <include layout="@layout/include_divider" />
+
+                <LinearLayout
+                    android:id="@+id/action_buttons_container"
+                    style="@style/CardViewActionBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button2"
+                        style="@style/flat_button_style"
+                        android:text="Irrelevant?"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <Button
+                        android:id="@+id/button1"
+                        style="@style/flat_button_style"
+                        android:text="Add to Cart"
+                        android:textColor="?colorAccent" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 </FrameLayout>

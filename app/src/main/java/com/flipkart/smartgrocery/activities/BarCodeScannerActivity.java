@@ -63,7 +63,7 @@ public class BarCodeScannerActivity extends AppCompatActivity implements ZXingSc
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
                 // User has denied the permission at least once. Ask it again.
                 // In future we may want to show a permission request rationale here.
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
             } else {
                 // Asking this permission for the first time.
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
@@ -143,7 +143,8 @@ public class BarCodeScannerActivity extends AppCompatActivity implements ZXingSc
         if (mBundle == null) {
             mBundle = new Bundle();
         }
-        String headerText = mBundle.getString(INTENT_EXTRA_HEADER_TEXT, null);
+//        String headerText = mBundle.getString(INTENT_EXTRA_HEADER_TEXT, null);
+        String headerText = getString(R.string.barcode_scanner_text);
         if (headerText == null) {
             findViewById(R.id.textView_header_barcode_scanner).setVisibility(View.GONE);
         } else {
@@ -162,6 +163,7 @@ public class BarCodeScannerActivity extends AppCompatActivity implements ZXingSc
         mFlashButton.setImageResource(
                 mIsFlashOn ? R.drawable.ic_flash_on_white_24dp : R.drawable.ic_flash_off_white_24dp
         );
+        mFlashButton.setVisibility(View.GONE);
         cameraStarted = true;
     }
 

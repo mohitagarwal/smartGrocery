@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(MainActivity.this, BarCodeScannerActivity.class), REQUEST_CODE_FOR_BARCODE_SCANNING);
+                Intent intent = new Intent(MainActivity.this, BarCodeScannerActivity.class);
+                intent.putExtra(BarCodeScannerActivity.INTENT_EXTRA_HEADER_TEXT, getString(R.string.barcode_scanner_text));
+                startActivityForResult(intent, REQUEST_CODE_FOR_BARCODE_SCANNING);
             }
         });
 

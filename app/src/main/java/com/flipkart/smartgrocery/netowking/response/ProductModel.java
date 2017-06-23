@@ -29,4 +29,7 @@ public class ProductModel {
     private String unit;
 
     private int discount;
+
+    @SerializedName("id_attributes")
+    private List<IdAttributes> attributes;
 }
