@@ -127,13 +127,13 @@ public class ProductListAdapter extends BaseAdapter {
                 viewHolder.quantityView.setVisibility(View.GONE);
             }
             if (productModel.getDiscountedPrice() != null) {
-                viewHolder.discountView.setText("Discounted Price:" + TextUtils.getRupeeText(productModel.getDiscountedPrice()));
+                viewHolder.discountView.setText("After loyalty Discounted: " + TextUtils.getRupeeText(productModel.getDiscountedPrice()));
                 viewHolder.discountView.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.discountView.setVisibility(View.GONE);
             }
             if (productModel.getPrice() != 0) {
-                viewHolder.priceView.setText(TextUtils.getRupeeText(productModel.getPrice()));
+                viewHolder.priceView.setText("Flipkart Price: " + TextUtils.getRupeeText(productModel.getPrice()));
                 viewHolder.priceView.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.priceView.setVisibility(View.GONE);
