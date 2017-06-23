@@ -17,12 +17,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,13 +62,10 @@ public class OCRActivity extends AppCompatActivity {
     public static final int CAMERA_PERMISSION_REQUEST = 103;
 
     private Uri imageUri;
-    private TextView detectedTextView;
-    private Button scan;
     private TextView yourCostView;
     private TextView fkCostView;
     private TextView savingsView;
     private ListView productsListView;
-    private Button continueShopping;
 
     private static final String FLASH_STATE = "FLASH_STATE";
     private static final String SELECTED_FORMATS = "SELECTED_FORMATS";
@@ -116,24 +114,26 @@ public class OCRActivity extends AppCompatActivity {
         fkCostView = (TextView) findViewById(R.id.fk_cost);
         savingsView = (TextView) findViewById(R.id.savings);
         productsListView = (ListView) findViewById(R.id.product_list);
-        continueShopping = (Button) findViewById(R.id.continueToCart);
-        continueShopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(OCRActivity.this, ShoppingCartActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
 
-        detectedTextView = (TextView) findViewById(R.id.detected_text);
-        detectedTextView.setMovementMethod(new ScrollingMovementMethod());
-        scan = (Button) findViewById(R.id.scan);
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.cart_scan_receipt, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_cart:
+                startActivity(new Intent(OCRActivity.this, ShoppingCartActivity.class));
+                break;
+            case R.id.menu_scan_another_receipt:
                 takePhoto();
-            }
-        });
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void takePhoto() {
@@ -240,7 +240,7 @@ public class OCRActivity extends AppCompatActivity {
         yourCostView.setText(response.getYourCost());
         fkCostView.setText(response.getFkCost());
         savingsView.setText(response.getSaving());
-        ProductListAdapter adapter = new ProductListAdapter(response.getProducts(), this);
+        ProductListAdapter adapter = new ProductListAdapter(response.getProducts(), this, true);
         productsListView.setAdapter(adapter);
     }
 

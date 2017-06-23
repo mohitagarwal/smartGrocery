@@ -36,6 +36,7 @@ public class ProductListAdapter extends BaseAdapter {
         this.products = products;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
+        this.showActions = showActions;
     }
 
 
@@ -137,9 +138,6 @@ public class ProductListAdapter extends BaseAdapter {
             }else {
                 viewHolder.actionsView.setVisibility(View.GONE);
             }
-
-
-
         }
     }
 

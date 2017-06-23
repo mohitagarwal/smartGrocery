@@ -3,6 +3,7 @@ package com.flipkart.smartgrocery.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private TextView totalAmountView;
     private TextView totalDiscountView;
     private TextView totalPayableView;
+    private Button checkoutButton;
 
 
     @Override
@@ -38,6 +40,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         totalAmountView = (TextView) findViewById(R.id.totalAmount);
         totalDiscountView = (TextView) findViewById(R.id.discountAmount);
         totalPayableView = (TextView) findViewById(R.id.payableAmount);
+        checkoutButton = (Button) findViewById(R.id.pay);
         displayList();
     }
 
@@ -60,7 +63,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             model.setPrice(cart.price);
             model.setCategory(cart.vertical);
             model.setQuantity(cart.quantity);
-            model.setUnit(cart.unit);
+            model.setFsn(cart.fsn);
             model.setDiscount(cart.discount);
             ArrayList<String> attrs = new ArrayList<String>(Arrays.asList(cart.attributes.split(" , ")));
             ArrayList<IdAttributes> idAttributes = new ArrayList<>();

@@ -2,5 +2,7 @@
     <string name="app_name">SmartGrocery</string>
     <string name="shared_pref_file_name">hackday</string>
     <string name="shared_pref_last_detected_text">lastDetectedText</string>
-    <string name="barcode_scanner_text">Sample</string>
+    <string name="barcode_scanner_text">Scan barcode of the product and we will show you our best price.</string>
+    <string name="after_receipt_scan_static_text">We have found some of these products on Flipkart.\nFor these products:</string>
+    <string name="discount_text_after_receipt_scan">You could have saved 10% more on Flipkart, save these products to your cart to get additional loyalty discount of 5%</string>
 </resources>

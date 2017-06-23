@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/continueToCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:text="Continue"/>
-
-    <Button
-        android:id="@+id/scan"
-        android:layout_below="@id/continueToCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scan" />
-
     <TextView
-        android:id="@+id/detected_text"
-        android:layout_width="wrap_content"
+        android:id="@+id/static_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/scan"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="8dp"
-        android:background="#EEEEEE"
-        android:scrollbars="vertical"
-        tools:text="sfsdfd" />
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/after_receipt_scan_static_text"
+        android:textSize="16dp" />
 
     <TableLayout
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detected_text"
+        android:layout_below="@id/static_text"
+        android:layout_marginTop="16dp"
         android:shrinkColumns="*"
         android:stretchColumns="*">
 
@@ -45,20 +29,17 @@
 
             <TextView
                 android:layout_weight="1"
-                android:background="#b0b0b0"
-                android:gravity="center"
-                android:padding="18dip"
-                android:text="Your Cost"
-                android:textColor="#000000" />
+                android:padding="8dip"
+                android:text="You Spent"
+                android:textColor="@android:color/secondary_text_light" />
 
             <TextView
                 android:id="@+id/your_cost"
                 android:layout_weight="1"
-                android:background="#a09f9f"
-                android:gravity="center"
-                android:padding="18dip"
-                android:text="Row 3 column 2"
-                android:textColor="#000000" />
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="-"
+                android:textColor="@android:color/secondary_text_light" />
         </TableRow>
 
         <TableRow
@@ -68,21 +49,27 @@
 
             <TextView
                 android:layout_weight="1"
-                android:background="#b0b0b0"
-                android:gravity="center"
-                android:padding="18dip"
-                android:text="Flipkart Cost"
-                android:textColor="#000000" />
+                android:padding="8dip"
+                android:text="You would have spent on Flipkart"
+                android:textColor="@android:color/secondary_text_light" />
 
             <TextView
                 android:id="@+id/fk_cost"
                 android:layout_weight="1"
-                android:background="#a09f9f"
-                android:gravity="center"
-                android:padding="18dip"
-                android:text="Row 3 column 2"
-                android:textColor="#000000" />
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="-"
+                android:textColor="@android:color/secondary_text_light" />
+        </TableRow>
 
+        <TableRow>
+
+            <include
+                layout="@layout/include_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1" />
         </TableRow>
 
         <TableRow
@@ -92,20 +79,18 @@
 
             <TextView
                 android:layout_weight="1"
-                android:background="#b0b0b0"
-                android:gravity="center"
-                android:padding="18dip"
-                android:text="Savings"
-                android:textColor="#000000" />
+                android:padding="8dip"
+                android:text="Total Savings"
+                android:textColor="@android:color/primary_text_light" />
 
             <TextView
                 android:id="@+id/savings"
                 android:layout_weight="1"
-                android:background="#a09f9f"
-                android:gravity="center"
-                android:padding="18dip"
-                android:text="Row 3 column 2"
-                android:textColor="#000000" />
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="-"
+                android:textColor="@android:color/primary_text_light"
+                android:textStyle="bold" />
         </TableRow>
     </TableLayout>
 
@@ -114,15 +99,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/table"
-        android:text="You could have saved 10% more :P" />
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/discount_text_after_receipt_scan" />
 
     <ListView
         android:id="@+id/product_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/savings_text"
-        />
-
-
-
+        android:layout_below="@id/savings_text" />
 </RelativeLayout>

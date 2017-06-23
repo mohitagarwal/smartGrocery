@@ -13,7 +13,7 @@ import java.util.List;
  * Created by satyanarayana.p on 23/06/17.
  */
 
-@Table(name = "ShoppingCart")
+@Table(name = "ShoppingCart", id = "fsn")
 public class ShoppingCart extends Model {
 
     @Column(name = "title")
@@ -31,8 +31,8 @@ public class ShoppingCart extends Model {
     @Column(name = "quantity")
     public Integer quantity;
 
-    @Column(name = "unit")
-    public String unit;
+    @Column(name = "fsn")
+    public String fsn;
 
     @Column(name = "discount")
     public Integer discount;
@@ -56,8 +56,8 @@ public class ShoppingCart extends Model {
         this.price = productModel.getPrice();
         this.vertical = productModel.getCategory();
         this.quantity = 1;
-        this.unit = productModel.getUnit();
         this.discount = productModel.getDiscount();
+        this.fsn = productModel.getFsn();
         StringBuilder sb = new StringBuilder();
         if (productModel.getAttributes() != null && productModel.getAttributes().size() != 0) {
             for (int i = 0; i < Math.min(productModel.getAttributes().size(), 2); i++) {

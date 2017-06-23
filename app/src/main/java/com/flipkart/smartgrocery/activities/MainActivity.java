@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -65,6 +68,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.cart, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_cart:
+                startActivity(new Intent(MainActivity.this, ShoppingCartActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i(TAG, requestCode + " " + resultCode + " " + data);
@@ -95,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleResponse(List<ProductModel> products) {
-        ProductListAdapter adapter = new ProductListAdapter(products, this);
+        ProductListAdapter adapter = new ProductListAdapter(products, this, true);
         productsListView.setAdapter(adapter);
     }
 }
