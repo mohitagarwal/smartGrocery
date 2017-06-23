@@ -13,7 +13,7 @@ import java.util.List;
  * Created by satyanarayana.p on 23/06/17.
  */
 
-@Table(name = "ShoppingCart", id = "fsn")
+@Table(name = "ShoppingCart", id = "id")
 public class ShoppingCart extends Model {
 
     @Column(name = "title")

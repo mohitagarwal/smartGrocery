@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flipkart.smartgrocery.R;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Button scanButton;
     private Button scanReceiptButton;
     private ListView productsListView;
+    private TextView listHeaderText;
 
 
     private HackdayService hackdayService = RetrofitApiClient.getClient().create(HackdayService.class);
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         productsListView = (ListView) findViewById(R.id.product_list);
+        listHeaderText = new TextView(this);
     }
 
     @Override
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, searchTerm);
 
                 searchProducts(searchTerm);
+                listHeaderText.setText("Showing results for " + searchTerm);
+                productsListView.addHeaderView(listHeaderText);
             }
         }
     }

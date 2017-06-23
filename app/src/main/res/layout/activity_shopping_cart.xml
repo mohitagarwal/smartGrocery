@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,44 +8,108 @@
         android:id="@+id/cart_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/table"
         android:text="You could have saved 10% more :P" />
 
     <ListView
         android:id="@+id/cart_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/savings_text" />
+        android:layout_below="@id/savings_text"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/paymentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cart_list"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/totalAmount"
+        <TableLayout
+            android:id="@+id/table"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/static_text"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
 
-        <TextView
-            android:id="@+id/discountAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/payableAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="8dip"
+                    android:text="Amount"
+                    android:textColor="@android:color/secondary_text_light" />
+
+                <TextView
+                    android:id="@+id/totalAmount"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="-"
+                    android:textColor="@android:color/secondary_text_light" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="8dip"
+                    android:text="Discount"
+                    android:textColor="@android:color/secondary_text_light" />
+
+                <TextView
+                    android:id="@+id/discountAmount"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="-"
+                    android:textColor="@android:color/secondary_text_light" />
+            </TableRow>
+
+            <TableRow>
+
+                <include
+                    layout="@layout/include_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="8dip"
+                    android:text="Net Payable"
+                    android:textColor="@android:color/primary_text_light" />
+
+                <TextView
+                    android:id="@+id/payableAmount"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="-"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
 
         <Button
             android:id="@+id/pay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Proceed to Pay"/>
+            android:text="Checkout" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

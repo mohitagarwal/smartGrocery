@@ -82,12 +82,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
         ProductListAdapter adapter = new ProductListAdapter(productModels, this);
         productsListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        totalAmountView.setText(totalAmount+"");
-        totalDiscountView.setText(totalDiscount+"");
-        totalPayableView.setText(totalPayable+"");
+        totalAmountView.setText(totalAmount + "");
+        totalDiscountView.setText(totalDiscount + "");
+        totalPayableView.setText(totalPayable + "");
 
     }
-
 
 
 }

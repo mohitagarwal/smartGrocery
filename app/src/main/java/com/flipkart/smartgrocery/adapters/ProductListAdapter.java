@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.flipkart.smartgrocery.R;
@@ -65,7 +66,7 @@ public class ProductListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ProductViewHolder) view.getTag();
         }
-        setupView(viewHolder, products.get(i));
+        setupView(viewHolder, products.get(i), i);
 
         return view;
     }
@@ -78,11 +79,12 @@ public class ProductListAdapter extends BaseAdapter {
         viewHolder.discountView = (TextView) view.findViewById(R.id.discount);
         viewHolder.priceView = (TextView) view.findViewById(R.id.price);
         viewHolder.addToCart = (Button) view.findViewById(R.id.button1);
+        viewHolder.irrevelant = (Button) view.findViewById(R.id.button2);
         viewHolder.actionsView = (LinearLayout) view.findViewById(R.id.list_action);
         view.setTag(viewHolder);
     }
 
-    private void setupView(ProductViewHolder viewHolder, final ProductModel productModel) {
+    private void setupView(ProductViewHolder viewHolder, final ProductModel productModel, final int index) {
         if (productModel != null) {
             if (productModel.getImageUrl() != null
                     && !productModel.getImageUrl().isEmpty()
@@ -126,7 +128,7 @@ public class ProductListAdapter extends BaseAdapter {
             } else {
                 viewHolder.priceView.setVisibility(View.GONE);
             }
-            if(showActions){
+            if (showActions) {
                 viewHolder.addToCart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -135,9 +137,17 @@ public class ProductListAdapter extends BaseAdapter {
                     }
                 });
                 viewHolder.actionsView.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 viewHolder.actionsView.setVisibility(View.GONE);
             }
+            viewHolder.irrevelant.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "Duly noted, thanks for contributing", Toast.LENGTH_LONG).show();
+                    products.remove(index);
+                    notifyDataSetChanged();
+                }
+            });
         }
     }
 
@@ -150,6 +160,7 @@ public class ProductListAdapter extends BaseAdapter {
         private TextView discountView;
         private LinearLayout actionsView;
         private Button addToCart;
+        private Button irrevelant;
     }
 
 }
