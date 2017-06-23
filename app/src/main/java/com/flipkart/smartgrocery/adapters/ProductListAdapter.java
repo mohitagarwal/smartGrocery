@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.flipkart.smartgrocery.R;
+import com.flipkart.smartgrocery.models.ShoppingCart;
 import com.flipkart.smartgrocery.netowking.response.IdAttributes;
 import com.flipkart.smartgrocery.netowking.response.ProductModel;
 import com.flipkart.smartgrocery.utils.TextUtils;
@@ -21,12 +24,20 @@ public class ProductListAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private Context context;
     private List<ProductModel> products;
+    private boolean showActions;
 
     public ProductListAdapter(List<ProductModel> products, Context context) {
         this.products = products;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
     }
+
+    public ProductListAdapter(List<ProductModel> products, Context context, boolean showActions) {
+        this.products = products;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = context;
+    }
+
 
     @Override
     public int getCount() {
@@ -65,10 +76,12 @@ public class ProductListAdapter extends BaseAdapter {
         viewHolder.quantityView = (TextView) view.findViewById(R.id.quantity);
         viewHolder.discountView = (TextView) view.findViewById(R.id.discount);
         viewHolder.priceView = (TextView) view.findViewById(R.id.price);
+        viewHolder.addToCart = (Button) view.findViewById(R.id.button1);
+        viewHolder.actionsView = (LinearLayout) view.findViewById(R.id.list_action);
         view.setTag(viewHolder);
     }
 
-    private void setupView(ProductViewHolder viewHolder, ProductModel productModel) {
+    private void setupView(ProductViewHolder viewHolder, final ProductModel productModel) {
         if (productModel != null) {
             if (productModel.getImageUrl() != null
                     && !productModel.getImageUrl().isEmpty()
@@ -112,6 +125,21 @@ public class ProductListAdapter extends BaseAdapter {
             } else {
                 viewHolder.priceView.setVisibility(View.GONE);
             }
+            if(showActions){
+                viewHolder.addToCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ShoppingCart cart = new ShoppingCart(productModel);
+                        cart.save();
+                    }
+                });
+                viewHolder.actionsView.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.actionsView.setVisibility(View.GONE);
+            }
+
+
+
         }
     }
 
@@ -122,6 +150,8 @@ public class ProductListAdapter extends BaseAdapter {
         private TextView quantityView;
         private TextView priceView;
         private TextView discountView;
+        private LinearLayout actionsView;
+        private Button addToCart;
     }
 
 }

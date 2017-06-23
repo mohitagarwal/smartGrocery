@@ -67,6 +67,7 @@ public class OCRActivity extends AppCompatActivity {
     private TextView fkCostView;
     private TextView savingsView;
     private ListView productsListView;
+    private Button continueShopping;
 
     private static final String FLASH_STATE = "FLASH_STATE";
     private static final String SELECTED_FORMATS = "SELECTED_FORMATS";
@@ -115,6 +116,14 @@ public class OCRActivity extends AppCompatActivity {
         fkCostView = (TextView) findViewById(R.id.fk_cost);
         savingsView = (TextView) findViewById(R.id.savings);
         productsListView = (ListView) findViewById(R.id.product_list);
+        continueShopping = (Button) findViewById(R.id.continueToCart);
+        continueShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OCRActivity.this, ShoppingCartActivity.class);
+                startActivity(intent);
+            }
+        });
 
         detectedTextView = (TextView) findViewById(R.id.detected_text);
         detectedTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -198,7 +207,7 @@ public class OCRActivity extends AppCompatActivity {
             sendReceiptOCRData(detectedText.toString().trim());
 
             saveDataInPrefs(detectedText.toString().trim());
-            detectedTextView.setText(detectedText);
+            Toast.makeText(OCRActivity.this, detectedText, Toast.LENGTH_LONG).show();
 
         } finally {
             textRecognizer.release();

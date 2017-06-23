@@ -7,11 +7,20 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="smartGrocery.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +33,7 @@
         <activity android:name=".activities.ReceiptScanResultActivity" />
         <activity android:name=".activities.NextTimeBuyActivity" />
         <activity android:name=".activities.ReceiptScanEntryActivity" />
+        <activity android:name=".activities.ShoppingCartActivity" />
 
         <service android:name=".services.FkFcmService">
             <intent-filter>

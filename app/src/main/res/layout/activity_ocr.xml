@@ -6,7 +6,15 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/continueToCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:text="Continue"/>
+
+    <Button
         android:id="@+id/scan"
+        android:layout_below="@id/continueToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Scan" />
@@ -106,12 +114,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/table"
-        android:text="You colud have saved 10% more :P" />
+        android:text="You could have saved 10% more :P" />
 
     <ListView
         android:id="@+id/product_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/savings_text" />
+        android:layout_below="@id/savings_text"
+        />
+
+
 
 </RelativeLayout>
