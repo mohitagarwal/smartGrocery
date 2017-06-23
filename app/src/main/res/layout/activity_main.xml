@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/product_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/buttons"
@@ -24,10 +31,4 @@
             android:layout_weight="1"
             android:text="Scan receipt" />
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/product_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/buttons" />
-</RelativeLayout>
+</LinearLayout>

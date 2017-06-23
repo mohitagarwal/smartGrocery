@@ -209,7 +209,7 @@ public class OCRActivity extends AppCompatActivity {
             sendReceiptOCRData(detectedText.toString().trim());
 
             saveDataInPrefs(detectedText.toString().trim());
-            Toast.makeText(OCRActivity.this, detectedText, Toast.LENGTH_LONG).show();
+//            Toast.makeText(OCRActivity.this, detectedText, Toast.LENGTH_LONG).show();
 
         } finally {
             textRecognizer.release();

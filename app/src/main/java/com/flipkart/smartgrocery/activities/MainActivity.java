@@ -21,6 +21,7 @@ import com.flipkart.smartgrocery.netowking.RetrofitApiClient;
 import com.flipkart.smartgrocery.netowking.response.BarcodeSearchResponse;
 import com.flipkart.smartgrocery.netowking.response.ProductModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -107,9 +108,12 @@ public class MainActivity extends AppCompatActivity {
             if (extras != null) {
                 String searchTerm = extras.getString(BarCodeScannerActivity.INTENT_EXTRA_SCAN_RESULT);
                 Log.i(TAG, searchTerm);
+                if (searchTerm != null) {
+                    handleResponse(new ArrayList<ProductModel>());
 
-                searchProducts(searchTerm);
-                productsListView.addHeaderView(listHeaderText);
+                    searchProducts(searchTerm);
+                    productsListView.addHeaderView(listHeaderText);
+                }
             }
         }
     }
